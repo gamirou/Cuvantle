@@ -24,13 +24,13 @@ export const Help = ({ showHelp, setShowHelp }) => {
                         <p><strong>De Exemplu</strong></p>
                         <div className="example">
                             <div className="help-row">
-                                <img src={motor} />
+                                <img src={motor} alt="Cuvantul MOTOR"/>
                             </div>
                             <p>Litera <strong>M</strong> este in cuvant si se afla in pozitia corecta.</p>
                         </div>
                         <div className="example">
                             <div className="help-row">
-                                <img src={curea}/>
+                                <img src={curea} alt="Cuvantul CUREA"/>
                             </div>
                             <p>Literele <strong>E</strong> si <strong>A</strong> se afla in cuvant dar nu in pozitiile corecte.</p>
                         </div>
