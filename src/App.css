@@ -6,3 +6,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.App--hide {
+  display: none;
+}
+
+.App--show {
+  display: flex;
+}

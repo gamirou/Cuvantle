@@ -3,7 +3,7 @@ import './Cuvantle.css';
 import Keyboard from '../keyboard/Keyboard';
 
 export const Cuvantle = ({ words }) => {
-
+    
     const generateRandomWord = () => {
         return words[Math.floor(Math.random() * words.length)].toUpperCase();
     }

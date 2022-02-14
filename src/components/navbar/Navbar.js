@@ -1,21 +1,18 @@
 import React from "react";
-import { FaFontAwesome, FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 import './Navbar.css';
 
-export const Navbar = () => {
+export const Navbar = ({ showHelp, setShowHelp }) => {
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        console.log(e.target.id);
-    }
+    // const handleClick = () => setShowHelp(!showHelp);
+    const handleClick = () => setShowHelp(true);
 
     return (
         <nav className="navbar">
             <h1 className="navbar--header">Cuvantle - Wordle in Romanian</h1>
-            <FaInfoCircle onClick={handleClick}/>
-            {/* <FaGem /> */}
+            <FaInfoCircle onClick={handleClick} />
         </nav>
-    );            
+    );
 }
 
 export default Navbar;

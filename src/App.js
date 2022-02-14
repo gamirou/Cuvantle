@@ -1,15 +1,26 @@
 import './App.css';
 import Cuvantle from './components/main/Cuvantle';
 import Navbar from './components/navbar/Navbar';
+import Help from './components/help/Help';
+import { useState } from 'react';
 
-const App = ({ words, hideLoader }) => {
+const App = ({ words }) => {
   // useEffect(hideLoader);
 
+  const [showHelp, setShowHelp] = useState(true);
+
+  // const handleUpdate = (updatedShowHelp) => {
+  //   setShowHelp(updatedShowHelp);
+  // }
+
   return (
-    <div className="App">
-      <Navbar />      
-      <Cuvantle words={words}/> 
-    </div>
+    <>
+      <div className='App'>
+        <Navbar showHelp={showHelp} setShowHelp={setShowHelp}/>
+        <Cuvantle words={words} />
+      </div>
+      <Help showHelp={showHelp} setShowHelp={setShowHelp} />
+    </>
   );
 }
 
