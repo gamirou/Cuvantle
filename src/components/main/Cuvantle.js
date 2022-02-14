@@ -1,7 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import './Cuvantle.css';
-import Keyboard from './Keyboard';
-import Navbar from './Navbar';
+import Keyboard from '../keyboard/Keyboard';
 
 export const Cuvantle = ({ words }) => {
 
@@ -157,7 +156,7 @@ export const Cuvantle = ({ words }) => {
 
     return (
         <div className='container'>
-            <Navbar />
+            {/* <Navbar /> */}
 
             <table>
                 <tbody>

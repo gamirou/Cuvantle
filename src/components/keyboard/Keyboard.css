@@ -20,3 +20,10 @@
     width: 80px !important;
     height: 50px !important;
 }
+
+/* Make keyboard disappear if width less than 570px */
+@media screen and (max-width: 570px) {
+    .keyboard {
+        display: none;
+    }
+}
