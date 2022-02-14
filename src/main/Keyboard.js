@@ -1,11 +1,16 @@
 import React from 'react';
 import './Keyboard.css';
 
-export const Keyboard = () => {
+export const Keyboard = ({ sendData }) => {
+
+    const handleClick = (event) => {
+        console.log(event.target.innerText);
+        sendData(event.target.innerText);
+    }
 
     const KeyButton = ({ value, colour }) => {
         return (
-            <button className={`key ${colour}`}>{value}</button>
+            <button className={`key ${colour}`} onClick={handleClick}>{value}</button>
         );
     }
 

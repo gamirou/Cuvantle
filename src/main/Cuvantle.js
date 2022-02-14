@@ -34,8 +34,8 @@ export const Cuvantle = ({ words }) => {
         );
     }
 
-    const handleKeyDown = useCallback((event) => {
-        // console.log(event.keyCode)
+    //const addLetter(letter) {
+    const addLetter = useCallback((letter) => {
         if (rowIndex === 6) {
             return;
         }
@@ -43,7 +43,7 @@ export const Cuvantle = ({ words }) => {
         const newCells = [...cells];
 
         // Backspace
-        if (event.keyCode === 8) {
+        if (letter === "BACK") {
             if (colIndex === 0) {
                 return;
             }
@@ -54,7 +54,7 @@ export const Cuvantle = ({ words }) => {
         }
 
         // Enter - submit the word
-        if (event.keyCode === 13 && colIndex === 5) {
+        if (letter === "ENTER" && colIndex === 5) {
             // Check if word is correct
             // Change cells colours
             setCellColours(cellColours.map((colour, index) => {
@@ -64,9 +64,9 @@ export const Cuvantle = ({ words }) => {
                 }
 
                 const indexCol = index % 5;
-                const letter = cells[rowIndex][indexCol];
-                if (word.includes(letter)) {
-                    if (word[indexCol] === letter) {
+                const l = cells[rowIndex][indexCol];
+                if (word.includes(l)) {
+                    if (word[indexCol] === l) {
                         return 'green';
                     } else {
                         return 'orange';
@@ -84,20 +84,93 @@ export const Cuvantle = ({ words }) => {
                 console.log("Correct!");
                 setGameOver(true);
             }
-        }
+        } else if (letter !== "ENTER") {
+            // Letters
+            const ascii = letter.charCodeAt(0);
+            if (ascii >= 65 && ascii <= 90 && !gameOver) {
+                if (colIndex === 5) {
+                    return;
+                }
 
-        // Letters
-        if (event.keyCode >= 65 && event.keyCode <= 90 && !gameOver) {
-            if (colIndex === 5) {
-                return;
+                // const letter = String.fromCharCode(event.keyCode);
+                newCells[rowIndex] = newCells[rowIndex].substring(0, colIndex) + letter;
+                setCells(newCells);
+                setColIndex(colIndex + 1);
             }
-
-            const letter = String.fromCharCode(event.keyCode);
-            newCells[rowIndex] = newCells[rowIndex].substring(0, colIndex) + letter;
-            setCells(newCells);
-            setColIndex(colIndex + 1);
         }
-    }, [cells, rowIndex, colIndex, word, cellColours, gameOver]);
+    }, [rowIndex, colIndex, gameOver, cells, cellColours, word]);
+
+    const handleKeyDown = useCallback((event) => {
+        let letter = String.fromCharCode(event.keyCode);
+        if (event.keyCode === 8) {
+            letter = "BACK";
+        } else if (event.keyCode === 13) {
+            letter = "ENTER";
+        }
+        addLetter(letter);
+        // console.log(event.keyCode)
+        // if (rowIndex === 6) {
+        //     return;
+        // }
+
+        // const newCells = [...cells];
+
+        // // Backspace
+        // if (event.keyCode === 8) {
+        //     if (colIndex === 0) {
+        //         return;
+        //     }
+        //     newCells[rowIndex] = newCells[rowIndex].substring(0, colIndex - 1);
+        //     setColIndex(colIndex - 1);
+        //     setCells(newCells);
+        //     return;
+        // }
+
+        // // Enter - submit the word
+        // if (event.keyCode === 13 && colIndex === 5) {
+        //     // Check if word is correct
+        //     // Change cells colours
+        //     setCellColours(cellColours.map((colour, index) => {
+        //         const indexWord = Math.floor(index / 5);
+        //         if (indexWord !== rowIndex) {
+        //             return colour;
+        //         }
+
+        //         const indexCol = index % 5;
+        //         const letter = cells[rowIndex][indexCol];
+        //         if (word.includes(letter)) {
+        //             if (word[indexCol] === letter) {
+        //                 return 'green';
+        //             } else {
+        //                 return 'orange';
+        //             }
+        //         }
+
+        //         return 'grey';
+        //     }));
+
+        //     setColIndex(0);
+        //     setRowIndex(rowIndex + 1);
+
+        //     // Check if word is correct
+        //     if (word === newCells[rowIndex]) {
+        //         console.log("Correct!");
+        //         setGameOver(true);
+        //     }
+        // }
+
+        // // Letters
+        // if (event.keyCode >= 65 && event.keyCode <= 90 && !gameOver) {
+        //     if (colIndex === 5) {
+        //         return;
+        //     }
+
+        //     const letter = String.fromCharCode(event.keyCode);
+        //     newCells[rowIndex] = newCells[rowIndex].substring(0, colIndex) + letter;
+        //     setCells(newCells);
+        //     setColIndex(colIndex + 1);
+        // }
+    }, [addLetter]);
 
     // const handleKeyUp = useCallback((event) => {
     //     if (!canPress) {
@@ -125,6 +198,10 @@ export const Cuvantle = ({ words }) => {
         setGameOver(false);
     }
 
+    const getDataFromKeyboard = (data) => {
+        addLetter(data);
+    };
+
     return (
         <div className='container'>
             <h1>Cuvantle</h1>
@@ -141,8 +218,8 @@ export const Cuvantle = ({ words }) => {
             </table>
 
             <button onClick={restartGame} className={gameOver ? `restart--show` : `restart--hide`}>Restart</button>
-        
-            <Keyboard />
+
+            <Keyboard sendData={getDataFromKeyboard} />
         </div>
     );
 }
