@@ -3,16 +3,21 @@ import './Cuvantle.css';
 import Keyboard from '../keyboard/Keyboard';
 
 export const Cuvantle = ({ words }) => {
-    
+
     const generateRandomWord = () => {
         return words[Math.floor(Math.random() * words.length)].toUpperCase();
     }
 
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const [keyColours, setKeyColours] = useState(alphabet.split('').reduce((acc, k) => {
-        acc[k] = 'black';
-        return acc;
-    }, {}));
+
+    const generateKeyColours = () => {
+        return alphabet.split('').reduce((acc, k) => {
+            acc[k] = 'black';
+            return acc;
+        }, {});
+    }
+
+    const [keyColours, setKeyColours] = useState(generateKeyColours());
 
     // const [alphabet, setAlphabet] = useState("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
     const [word, setWord] = useState(generateRandomWord());
@@ -97,6 +102,9 @@ export const Cuvantle = ({ words }) => {
             if (word === newCells[rowIndex]) {
                 console.log("Correct!");
                 setGameOver(true);
+            } else if (rowIndex === 5) {
+                console.log("Lost!");
+                setGameOver(true);
             }
         } else if (letter !== "ENTER") {
             // Letters
@@ -142,12 +150,15 @@ export const Cuvantle = ({ words }) => {
     console.log(word);
 
     const restartGame = () => {
-        setWord(generateRandomWord());
-        setCells(Array(6).fill('     '));
-        setCellColours(Array(30).fill('white'));
-        setRowIndex(0);
-        setColIndex(0);
-        setGameOver(false);
+        if (gameOver) {
+            setWord(generateRandomWord());
+            setCells(Array(6).fill('     '));
+            setCellColours(Array(30).fill('white'));
+            setKeyColours(generateKeyColours());
+            setRowIndex(0);
+            setColIndex(0);
+            setGameOver(false);
+        }
     }
 
     const getDataFromKeyboard = (data) => {
@@ -158,7 +169,7 @@ export const Cuvantle = ({ words }) => {
         <div className='container'>
             {/* <Navbar /> */}
 
-            <table>
+            <table onClick={restartGame}>
                 <tbody>
                     <Row guess={0} />
                     <Row guess={1} />
@@ -169,7 +180,9 @@ export const Cuvantle = ({ words }) => {
                 </tbody>
             </table>
 
-            <button onClick={restartGame} className={gameOver ? `restart--show` : `restart--hide`}>Restart</button>
+            <p className={gameOver ? `restart--show` : `restart--hide`}>
+                Cuvantal era {word}. Apasa grila pentru a incepe o noua partida.
+            </p>
 
             <Keyboard sendData={getDataFromKeyboard} keyColours={keyColours} />
         </div>

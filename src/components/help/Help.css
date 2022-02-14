@@ -13,10 +13,41 @@
     color: whitesmoke;
 }
 
+.help-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.help-container>h1 {
+    font-size: 24px;
+    font-family: 'Lucida Sans', Verdana, sans-serif;
+    font-weight: bold;
+    align-self: stretch;
+}
+
+.help-container>svg {
+    width: 30px;
+    height: 30px;
+    margin-left: 100px;
+    align-self: center;
+}
+
+.help>div, .help>section {
+    padding: 20px;
+    margin: 0;
+}
+
 .help--show {
     display: flex;
 }
 
 .help--hide {
     display: none;
+}
+
+.help-row>img {
+    width: 40%;
+    height: auto;
 }
