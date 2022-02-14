@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import './Cuvantle.css';
+import Keyboard from './Keyboard';
 
 export const Cuvantle = ({ words }) => {
 
@@ -72,7 +73,7 @@ export const Cuvantle = ({ words }) => {
                     }
                 }
 
-                return colour;
+                return 'grey';
             }));
 
             setColIndex(0);
@@ -140,8 +141,10 @@ export const Cuvantle = ({ words }) => {
             </table>
 
             <button onClick={restartGame} className={gameOver ? `restart--show` : `restart--hide`}>Restart</button>
+        
+            <Keyboard />
         </div>
-    )
+    );
 }
 
 export default Cuvantle;
