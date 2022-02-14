@@ -1,57 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Keyboard.css';
 
-export const Keyboard = ({ sendData }) => {
+export const Keyboard = ({ sendData, keyColours }) => {
 
     const handleClick = (event) => {
         console.log(event.target.innerText);
         sendData(event.target.innerText);
     }
 
-    const KeyButton = ({ value, colour }) => {
+    const KeyButton = ({ value }) => {
         return (
-            <button className={`key ${colour}`} onClick={handleClick}>{value}</button>
+            <button className={`key ${value in keyColours ? keyColours[value] : value}`} onClick={handleClick}>{value}</button>
         );
     }
 
     return (
         <div className="keyboard">
             <div className="keyboard__row">
-                <KeyButton value="Q" colour="grey" />
-                <KeyButton value="W" colour="grey" />
-                <KeyButton value="E" colour="grey" />
-                <KeyButton value="R" colour="grey" />
-                <KeyButton value="T" colour="grey" />
-                <KeyButton value="Y" colour="grey" />
-                <KeyButton value="U" colour="grey" />
-                <KeyButton value="I" colour="grey" />
-                <KeyButton value="O" colour="grey" />
-                <KeyButton value="P" colour="grey" />
+                <KeyButton value="Q" />
+                <KeyButton value="W" />
+                <KeyButton value="E" />
+                <KeyButton value="R" />
+                <KeyButton value="T" />
+                <KeyButton value="Y" />
+                <KeyButton value="U" />
+                <KeyButton value="I" />
+                <KeyButton value="O" />
+                <KeyButton value="P" />
             </div>
             <div className="keyboard__row">
-                <KeyButton value="A" colour="grey" />
-                <KeyButton value="S" colour="grey" />
-                <KeyButton value="D" colour="grey" />
-                <KeyButton value="F" colour="grey" />
-                <KeyButton value="G" colour="grey" />
-                <KeyButton value="H" colour="grey" />
-                <KeyButton value="J" colour="grey" />
-                <KeyButton value="K" colour="grey" />
-                <KeyButton value="L" colour="grey" />
+                <KeyButton value="A" />
+                <KeyButton value="S" />
+                <KeyButton value="D" />
+                <KeyButton value="F" />
+                <KeyButton value="G" />
+                <KeyButton value="H" />
+                <KeyButton value="J" />
+                <KeyButton value="K" />
+                <KeyButton value="L" />
             </div>
             <div className="keyboard__row">
-                <KeyButton value="ENTER" colour="key--enter" />
-                <KeyButton value="Z" colour="grey" />
-                <KeyButton value="X" colour="grey" />
-                <KeyButton value="C" colour="grey" />
-                <KeyButton value="V" colour="grey" />
-                <KeyButton value="B" colour="grey" />
-                <KeyButton value="N" colour="grey" />
-                <KeyButton value="M" colour="grey" />
-                <KeyButton value="BACK" colour="key--back" />
+                <KeyButton value="ENTER" />
+                <KeyButton value="Z" />
+                <KeyButton value="X" />
+                <KeyButton value="C" />
+                <KeyButton value="V" />
+                <KeyButton value="B" />
+                <KeyButton value="N" />
+                <KeyButton value="M" />
+                <KeyButton value="BACK" />
             </div>
         </div>
     );
 }
 
 export default Keyboard;
+
+    // Python code
+    // alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split()
+    // lst = {k: 'grey' for k in alphabet}
+    // Javascript
+    // const lst = alphabet.split('').reduce((acc, k) => {
+    //     acc[k] = 'grey';
+    //     return acc;
+    // }, {});
+    // console.log(lst);

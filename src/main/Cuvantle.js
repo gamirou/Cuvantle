@@ -1,12 +1,19 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import './Cuvantle.css';
 import Keyboard from './Keyboard';
+import Navbar from './Navbar';
 
 export const Cuvantle = ({ words }) => {
 
     const generateRandomWord = () => {
         return words[Math.floor(Math.random() * words.length)].toUpperCase();
     }
+
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const [keyColours, setKeyColours] = useState(alphabet.split('').reduce((acc, k) => {
+        acc[k] = 'black';
+        return acc;
+    }, {}));
 
     // const [alphabet, setAlphabet] = useState("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
     const [word, setWord] = useState(generateRandomWord());
@@ -57,6 +64,7 @@ export const Cuvantle = ({ words }) => {
         if (letter === "ENTER" && colIndex === 5) {
             // Check if word is correct
             // Change cells colours
+            const newKeyColours = { ...keyColours };
             setCellColours(cellColours.map((colour, index) => {
                 const indexWord = Math.floor(index / 5);
                 if (indexWord !== rowIndex) {
@@ -67,10 +75,16 @@ export const Cuvantle = ({ words }) => {
                 const l = cells[rowIndex][indexCol];
                 if (word.includes(l)) {
                     if (word[indexCol] === l) {
+                        newKeyColours[l] = 'green';
                         return 'green';
                     } else {
+                        if (newKeyColours[l] !== 'green') {
+                            newKeyColours[l] = 'orange';
+                        }
                         return 'orange';
                     }
+                } else {
+                    newKeyColours[l] = 'grey';
                 }
 
                 return 'grey';
@@ -78,6 +92,7 @@ export const Cuvantle = ({ words }) => {
 
             setColIndex(0);
             setRowIndex(rowIndex + 1);
+            setKeyColours(newKeyColours);
 
             // Check if word is correct
             if (word === newCells[rowIndex]) {
@@ -98,7 +113,7 @@ export const Cuvantle = ({ words }) => {
                 setColIndex(colIndex + 1);
             }
         }
-    }, [rowIndex, colIndex, gameOver, cells, cellColours, word]);
+    }, [rowIndex, colIndex, gameOver, cells, keyColours, cellColours, word]);
 
     const handleKeyDown = useCallback((event) => {
         let letter = String.fromCharCode(event.keyCode);
@@ -108,68 +123,6 @@ export const Cuvantle = ({ words }) => {
             letter = "ENTER";
         }
         addLetter(letter);
-        // console.log(event.keyCode)
-        // if (rowIndex === 6) {
-        //     return;
-        // }
-
-        // const newCells = [...cells];
-
-        // // Backspace
-        // if (event.keyCode === 8) {
-        //     if (colIndex === 0) {
-        //         return;
-        //     }
-        //     newCells[rowIndex] = newCells[rowIndex].substring(0, colIndex - 1);
-        //     setColIndex(colIndex - 1);
-        //     setCells(newCells);
-        //     return;
-        // }
-
-        // // Enter - submit the word
-        // if (event.keyCode === 13 && colIndex === 5) {
-        //     // Check if word is correct
-        //     // Change cells colours
-        //     setCellColours(cellColours.map((colour, index) => {
-        //         const indexWord = Math.floor(index / 5);
-        //         if (indexWord !== rowIndex) {
-        //             return colour;
-        //         }
-
-        //         const indexCol = index % 5;
-        //         const letter = cells[rowIndex][indexCol];
-        //         if (word.includes(letter)) {
-        //             if (word[indexCol] === letter) {
-        //                 return 'green';
-        //             } else {
-        //                 return 'orange';
-        //             }
-        //         }
-
-        //         return 'grey';
-        //     }));
-
-        //     setColIndex(0);
-        //     setRowIndex(rowIndex + 1);
-
-        //     // Check if word is correct
-        //     if (word === newCells[rowIndex]) {
-        //         console.log("Correct!");
-        //         setGameOver(true);
-        //     }
-        // }
-
-        // // Letters
-        // if (event.keyCode >= 65 && event.keyCode <= 90 && !gameOver) {
-        //     if (colIndex === 5) {
-        //         return;
-        //     }
-
-        //     const letter = String.fromCharCode(event.keyCode);
-        //     newCells[rowIndex] = newCells[rowIndex].substring(0, colIndex) + letter;
-        //     setCells(newCells);
-        //     setColIndex(colIndex + 1);
-        // }
     }, [addLetter]);
 
     // const handleKeyUp = useCallback((event) => {
@@ -204,7 +157,7 @@ export const Cuvantle = ({ words }) => {
 
     return (
         <div className='container'>
-            <h1>Cuvantle</h1>
+            <Navbar />
 
             <table>
                 <tbody>
@@ -219,7 +172,7 @@ export const Cuvantle = ({ words }) => {
 
             <button onClick={restartGame} className={gameOver ? `restart--show` : `restart--hide`}>Restart</button>
 
-            <Keyboard sendData={getDataFromKeyboard} />
+            <Keyboard sendData={getDataFromKeyboard} keyColours={keyColours} />
         </div>
     );
 }

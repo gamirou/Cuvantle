@@ -3,7 +3,7 @@
     height: 50px;
     margin: 5px;
     border: 1px;
-    border: 0;
+    border: 1px solid #858585;
     border-radius: 2px;
     color: whitesmoke;
     font-weight: bold;
@@ -15,7 +15,7 @@
     padding-top: 20px;
 }
 
-.key--enter, .key--back {
+.ENTER, .BACK {
     background-color: #808080;
     width: 80px !important;
     height: 50px !important;
