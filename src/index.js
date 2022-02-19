@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import WORDS from './data';
+import WORDS from './constants/words';
+import VALID_GUESSES from './constants/validGuesses';
 import reportWebVitals from './reportWebVitals';
 
 // Loader that I can reuse
@@ -52,7 +53,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App words={WORDS} />
+    <App words={WORDS} validGuesses={VALID_GUESSES} />
   </React.StrictMode>,
   document.getElementById('root')
 );

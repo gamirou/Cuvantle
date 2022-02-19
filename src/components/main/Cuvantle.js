@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import './Cuvantle.css';
 import Keyboard from '../keyboard/Keyboard';
 
-export const Cuvantle = ({ words }) => {
+export const Cuvantle = ({ words, validGuesses }) => {
 
     const generateRandomWord = () => {
         return words[Math.floor(Math.random() * words.length)].toUpperCase();
@@ -67,6 +67,14 @@ export const Cuvantle = ({ words }) => {
         // Enter - submit the word
         if (letter === "ENTER" && colIndex === 5) {
             // Check if word is correct
+            // console.log(validGuesses);
+            // console.log(cells[rowIndex]);
+            if (!validGuesses.includes(cells[rowIndex])) {
+                console.log("Not in dictionary");
+                return;
+            }
+
+
             // Change cells colours
             const newKeyColours = { ...keyColours };
             setCellColours(cellColours.map((colour, index) => {
@@ -120,7 +128,7 @@ export const Cuvantle = ({ words }) => {
                 setColIndex(colIndex + 1);
             }
         }
-    }, [rowIndex, colIndex, gameOver, cells, keyColours, cellColours, word]);
+    }, [rowIndex, colIndex, gameOver, cells, keyColours, cellColours, word, validGuesses]);
 
     const handleKeyDown = useCallback((event) => {
         let letter = String.fromCharCode(event.keyCode);
