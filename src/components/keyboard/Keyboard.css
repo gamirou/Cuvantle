@@ -11,19 +11,42 @@
     font-size: 15px;
 }
 
+.keyboard--row {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .keyboard {
     padding-top: 20px;
 }
 
 .ENTER, .BACK {
     background-color: #808080;
-    width: 80px !important;
-    height: 50px !important;
+    width: 80px;
 }
 
 /* Make keyboard disappear if width less than 570px */
-@media screen and (max-width: 570px) {
-    .keyboard {
-        display: none;
+@media screen and (max-width: 500px) {
+    .key {
+        width: 7vw;
+        margin: 1vw;
+        height: 40px;
     }
+
+    .ENTER, .BACK {
+        width: 15vw;
+        font-size: 12px;
+    }
+
+    .keyboard--row {
+        height: 55px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .key {
+        margin: 0.5vw;
+    }   
 }

@@ -17,7 +17,7 @@ export const Keyboard = ({ sendData, keyColours }) => {
 
     return (
         <div className="keyboard">
-            <div className="keyboard__row">
+            <div className="keyboard--row">
                 <KeyButton value="Q" />
                 <KeyButton value="W" />
                 <KeyButton value="E" />
@@ -29,7 +29,7 @@ export const Keyboard = ({ sendData, keyColours }) => {
                 <KeyButton value="O" />
                 <KeyButton value="P" />
             </div>
-            <div className="keyboard__row">
+            <div className="keyboard--row">
                 <KeyButton value="A" />
                 <KeyButton value="S" />
                 <KeyButton value="D" />
@@ -40,7 +40,7 @@ export const Keyboard = ({ sendData, keyColours }) => {
                 <KeyButton value="K" />
                 <KeyButton value="L" />
             </div>
-            <div className="keyboard__row">
+            <div className="keyboard--row">
                 <KeyButton value="ENTER" />
                 <KeyButton value="Z" />
                 <KeyButton value="X" />
