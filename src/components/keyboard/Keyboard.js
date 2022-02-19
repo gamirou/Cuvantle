@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaArrowCircleLeft } from 'react-icons/fa';
 import './Keyboard.css';
 
 export const Keyboard = ({ sendData, keyColours }) => {
@@ -12,9 +11,7 @@ export const Keyboard = ({ sendData, keyColours }) => {
     const KeyButton = ({ value }) => {
         return (
             <button className={`key ${value in keyColours ? keyColours[value] : value}`} 
-            onClick={handleClick}>
-                {value === "BACK" ? <FaArrowCircleLeft /> : value}
-            </button>
+            onClick={handleClick}>{value}</button>
         );
     }
 
