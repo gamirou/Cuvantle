@@ -74,7 +74,6 @@ export const Cuvantle = ({ words, validGuesses }) => {
                 return;
             }
 
-
             // Change cells colours
             const newKeyColours = { ...keyColours };
             setCellColours(cellColours.map((colour, index) => {
